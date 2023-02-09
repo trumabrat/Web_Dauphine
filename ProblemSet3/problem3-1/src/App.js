@@ -1,10 +1,8 @@
 import {
+  Button,
+  ButtonGroup,
   createTheme,
   CssBaseline,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
   ThemeProvider,
   Typography,
 } from "@mui/material";
@@ -12,14 +10,16 @@ import { Box, Container } from "@mui/system";
 import { useState } from "react";
 import "./App.css";
 import CatFacts from "./components/CatFacts/CatFacts";
+import GenderPredictor from "./components/GenderPredictor/GenderPredictor";
 
 const theme = createTheme();
 
 function App() {
   let [selection, setSelection] = useState("Cat Facts");
-  const handleChange = (event) => {
-    console.log(event.target.value);
-  };
+  const changeMode = (mode) => () => {
+    setSelection(mode);
+  }
+
 
   return (
     <div className="App">
@@ -54,20 +54,19 @@ function App() {
                 integrated the solutions into a single React app.
               </Typography>
 
-              <FormControl fullWidth direction="row" justifyContent="center">
-                <InputLabel id="select-mode-label">Select mode</InputLabel>
-                <Select
-                  labelId="select-mode-label"
-                  label="Select mode"
-                  onClick={handleChange}
+              <Box sx={{ display: "flex", justifyContent: "center" }}>
+                <ButtonGroup
+                  variant="outlined"
+                  aria-label="outlined button group"
                 >
-                  <MenuItem value="Cat Facts">Cat Facts</MenuItem>
-                  <MenuItem value="Gender predictor">Gender Predictor</MenuItem>
-                </Select>
-              </FormControl>
+                  <Button onClick={changeMode("Cat Facts")}>Cat Facts</Button>
+                  <Button onClick={changeMode("Gender Predictor")}>Gender Predictor</Button>
+                </ButtonGroup>
+              </Box>
             </Container>
           </Box>
-          <CatFacts />
+          {selection === "Cat Facts" ? <CatFacts /> : <GenderPredictor />}
+          
         </main>
       </ThemeProvider>
     </div>
