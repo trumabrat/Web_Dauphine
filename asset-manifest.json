@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Web_Dauphine/static/css/main.1df2f9e4.css",
+    "main.js": "/Web_Dauphine/static/js/main.51756087.js",
+    "index.html": "/Web_Dauphine/index.html",
+    "main.1df2f9e4.css.map": "/Web_Dauphine/static/css/main.1df2f9e4.css.map",
+    "main.51756087.js.map": "/Web_Dauphine/static/js/main.51756087.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1df2f9e4.css",
+    "static/js/main.51756087.js"
+  ]
+}
