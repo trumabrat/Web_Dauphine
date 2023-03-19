@@ -15,4 +15,4 @@ def add(request):
     return render(request, 'add.html')
 
 def get_entry(request,post_id):
-    return HttpResponse(f"Hello, world. You're at the posts get_entry. Post id is {id}.")
+    return HttpResponse(f"Hello, world. You're at the posts get_entry. Post id is {post_id}.")
