@@ -1,0 +1,36 @@
+{%extends "base.html"%}
+{%block title%}Add Post{%endblock%}
+{%block content%}
+    <h1>Add Post</h1>
+    <form action="{%url 'add'%}" method="POST">
+        {% csrf_token %}
+        <!--Input field for title of the post-->
+        <label for="author">Author</label>
+        <input type="text" name="author" id="author">
+        <!--Input field for content of the post-->
+        <label for="content">Content</label>
+        <textarea name="content" id="content" cols="30" rows="10"></textarea>
+        <!--Submit button-->
+        <button type="submit">Add</button>
+    </form>
+{%endblock%}
+
+{%block head%}
+<style>
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 1.5rem;
+    }
+    label {
+        margin-top: 1.5rem;
+    }
+    input, textarea {
+        margin-top: 0.5rem;
+    }
+    button {
+        margin-top: 1.5rem;
+    }
+</style>
+{%endblock%}

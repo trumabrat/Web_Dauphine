@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{%block title%} {%endblock%}</title>
+    <style>
+        h1 {
+            text-align: center;
+
+        }
+        nav{
+            display: flex;
+            justify-content: center;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        nav ul li {
+            margin: 0 10rem;
+        }
+        main {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+    </style>
+    {%block head%}{%endblock%}
+</head>
+<body>
+    <h1>Forms app</h1>
+    <nav>
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'add' %}">Add Post</a></li>
+        </ul>
+    </nav>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>
