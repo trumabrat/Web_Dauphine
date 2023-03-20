@@ -3,10 +3,16 @@
 
 {%block content%}
     <h2>Home</h1>
-    <p>Here are the posts you have made:</p>
+    <p>You can access a single post by navigation to entry/id:int</p>
+    <p>Here are the existing posts:</p>
+    
     <ul>
         {%for post in posts%}
-            <li><a href="#">{{post.title}}</a></li>
+            {%if forloop.counter == 1%}
+                <li class="lastPost">{{post.author}} : {{post.body}} (post id: {{post.id}})</li>
+            {%else%}
+                <li>{{post.author}} : {{post.body}} (post id: {{post.id}})</li>
+            {%endif%}
         {%endfor%}
     </ul>
 {%endblock%}
@@ -18,5 +24,11 @@ h2 {
     margin-bottom: 1.5rem;
     text-align: center;
   }
+    .lastPost {
+        background-color: yellow;
+        border: 1px solid #e3e3e3;
+        border-radius: 3px;
+        padding: 10px;
+    }
 </style>
 {%endblock%}
