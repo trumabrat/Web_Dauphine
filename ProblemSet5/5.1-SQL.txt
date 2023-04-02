@@ -1,0 +1,30 @@
+1. The equivalent in Django is:
+
+from django.db import models
+
+class Classroom(models.Model):
+    roomname = models.CharField(max_length=255, null=False)
+    seats = models.IntegerField(default=50, null=False)
+
+    class Meta:
+        db_table = "classrooms"
+-----------------------------------------------------------------------------
+
+2. The equivalent in Django is:
+
+from models import Classroom
+
+Classroom.objects.create(roomname='A101', seats=42)
+Classroom.objects.create(roomname='A102')
+
+-----------------------------------------------------------------------------
+
+3. The equivalent in Django is:
+
+from myapp.models import Classroom
+
+query = Classroom.objects.filter(seats__gt=45)
+
+#if we also want to print the results:
+for row in query:
+    print (row.id, row.roomname, row.seats)
