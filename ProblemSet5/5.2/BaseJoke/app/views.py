@@ -1,34 +1,26 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
-
+from .models import Quote
+from .models import Person
 from django import forms
-
-jokes = {
-    '1': {
-        'id': 1,
-        'text': 'Why did the tomato turn red? Because it saw the salad dressing!',
-        'author': 'Anna'
-    }
-}
 
 # Form for entering a joke
 class JokeForm(forms.Form):
-    joke = forms.CharField(label='Joke', max_length=120, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    author = forms.CharField(label='Author', max_length=20, widget=forms.TextInput(attrs={'class': 'form-control'}))
-
+    joke = forms.CharField(label='Quote', max_length=120, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    author = forms.ModelChoiceField(queryset=Person.objects.all(), widget=forms.Select(attrs={'class': 'form-control'}))
 
 # index page displaying all entries
 def index(request):
-    rendered = render(request, 'app/index.html', {'jokes': jokes.values()})
     highlight = request.GET.get('highlight')
     try:
         highlight = int(highlight)
     except: 
         highlight = None
-    
+    # get all quotes from quote model
+    quotes = Quote.objects.all()
     return render(request, 'app/index.html', {
-        'jokes': jokes.values(),
+        'jokes': quotes,
         'highlight': highlight
     })
 
@@ -39,12 +31,12 @@ def add(request):
     if request.method == 'POST':
         form = JokeForm(request.POST)
         if form.is_valid():
-            id = len(jokes) + 1
-            jokes[id] = {
-                'id': id,
-                'text': form.cleaned_data['joke'],
-                'author': form.cleaned_data['author']
-            }
+            # id is len(quotes) + 1
+            id = len(Quote.objects.all()) + 1
+            # add new entry to quotes model, and set id to our id
+            quote = Quote(text=form.cleaned_data['joke'], author=form.cleaned_data['author'])
+            quote.id = id
+            quote.save()
             
             # add GET request parameter to highlight correct joke
             response = redirect('app:index')
@@ -57,8 +49,10 @@ def add(request):
 
 # get JSON version of an entry
 def get_user_entry(request, id):
-    entry = jokes.get(id)
+    # get entry from quotes model
+    entry = Quote.objects.get(id=id)
     if entry is None:
         return JsonResponse({'error': 'Entry does not exist'}, status=404)
     else:
-        return JsonResponse(entry)
+        #return entry as an JSON object
+        return JsonResponse({"text": entry.text, "author": entry.author.name})

@@ -2,7 +2,7 @@
 
 {% block content %}
   <div class="container">
-    <h1 class="title">List of Jokes</h1>
+    <h1 class="title">List of Quotes</h1>
     <ul class="joke-list">
       {% for joke in jokes %}
         <li class="joke-item {% if highlight == joke.id %}highlighted{% endif %}">
@@ -13,7 +13,7 @@
           </div>
         </li>
       {% empty %}
-        <li>No jokes yet</li>
+        <li>No quotes yet</li>
       {% endfor %}
     </ul>
   </div>
